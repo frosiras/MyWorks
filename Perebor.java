@@ -30,19 +30,25 @@ public class Perebor {
         // Вернихний цикл отвечает за число разрядов в числе
         for (int numberOfRank = 1; numberOfRank <= setOfFigures.size(); numberOfRank++){
             // Цикл отвечает за расстояние между выбранными цифрами
-            for (int distanceBetween = 0; distanceBetween < setOfFigures.size(); distanceBetween++){
+            for (int distanceBetween = 1; distanceBetween < 3; distanceBetween++){ // было setOfFigures.size()
                 // Цикл отвечает за проход, проверку, сортировку и вставку
                 for (int step = 0; step < setOfFigures.size(); step++){
                     String tempNumber = "";
+                    int nextIndex = step-1;
                     //Получил число, отсортировал, проверил на входимость, вставил
                     for (int  j = 0; j < numberOfRank; j++) {
-                        int nextStep = (step + distanceBetween * j)%setOfFigures.size();
-                        tempNumber += setOfFigures.get(nextStep);
+                        if (j == 1 )
+                            nextIndex = (nextIndex + distanceBetween)%setOfFigures.size();
+                        else nextIndex = (nextIndex + 1)%setOfFigures.size();
+                        tempNumber += setOfFigures.get(nextIndex);
                     }
+                    System.out.print(tempNumber + " ");
                     tempNumber = sortNumber(tempNumber);
                     if (!setOfNumbers.contains(tempNumber)&&!hasTheSameFigure(tempNumber))
                         setOfNumbers.add(tempNumber);
                 }
+                System.out.print("Distance: " + distanceBetween);
+                System.out.println();
             }
         }
         System.out.println(setOfNumbers);
